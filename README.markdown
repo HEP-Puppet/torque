@@ -21,3 +21,6 @@ To Install and configure torque mom
    include torque::mom
    
    It will include torque::mom::config and torque::munge::key
+
+Be careful to get the master branch
+ > git checkout master
