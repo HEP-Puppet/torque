@@ -2,7 +2,7 @@ $pbsserver <%= @torque_server %>
 $restricted <%= @torque_server %>
 <% @restricted.each do |server| -%>
 $restricted <%= server %>
-<% end -%>
+<% end %>
 $logevent <%= @options['logevent'] %>
 <% ideal_load = @options['ideal_load'] ? @options['ideal_load'] : (Integer(@processorcount) + Float(@ideal_load_adj)) -%>
 $ideal_load <%= ideal_load %>
@@ -13,3 +13,6 @@ $max_load <%= max_load %>
 $<%= key %> <%= @options[key] %>
   <%- end -%>
 <%- end -%>
+<%- if @usecp -%><% @usecp.each do |dir| %> 
+$usecp <%= dir %><%- end -%>
+<% end %>

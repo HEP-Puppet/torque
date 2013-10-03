@@ -14,6 +14,8 @@ class torque::params {
   $mom_restricted         = hiera("torque::params::mom_restricted", [])
   $mom_ideal_load_adj     = hiera("torque::params::mom_ideal_load_adj", 0.2)
   $mom_max_load_adj       = hiera("torque::params::mom_max_load_adj", 1.2)
+  #Directories to transfer the output using cp only
+  $mom_use_cp             = hiera_array("torque::params::mom_use_cp", [])
   $mom_options            = hiera("torque::params::mom_options", {
     logevent => 255,
   })
@@ -68,6 +70,10 @@ class torque::params {
   # if no value is specified then the default options array ($torque_qmgr_qdefaults) is used
   $torque_qmgr_queues     = hiera("torque::params::torque_qmgr_queues", {})
   # maui options
+  # Copy from file server
+  $mauifile               = hiera("torque::params::mauifile", undef)
+ 
+  # set up maui using puppet
   $maui_install_ensure    = hiera("torque::params::maui_install_ensure", 'installed')
   $maui_service_ensure    = hiera("torque::params::maui_service_ensure", 'running')
   $maui_service_enable    = hiera("torque::params::maui_service_enable", true)

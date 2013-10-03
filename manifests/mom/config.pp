@@ -4,6 +4,8 @@ class torque::mom::config(
   $ideal_load_adj = $torque::params::mom_ideal_load_adj,
   $max_load_adj   = $torque::params::mom_max_load_adj,
   $options        = $torque::params::mom_options,
+  $usecp          = $torque::params::mom_use_cp,
+
 ) inherits torque::params {
   file { '/etc/torque/mom/config':
     ensure  => 'present',
