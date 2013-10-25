@@ -7,7 +7,7 @@ class torque::maui::service(
     enable     => $enable,
     hasrestart => true,
     hasstatus  => true,
-#    require    => Package['maui-server'],
+    require    => Package['maui-server'],
     subscribe  => File['/var/spool/maui/maui.cfg'],
   }
 }

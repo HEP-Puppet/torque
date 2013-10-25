@@ -25,11 +25,10 @@ module Puppet::Parser::Functions
       raise(Puppet::ParseError, 'torque_config_diff(node), second argument has to be a hash') unless queues.is_a?(Hash)
       raise(Puppet::ParseError, 'torque_config_diff(node), third argument has to be an array') unless qdefaults.is_a?(Array)
       clientqueues = lookupvar('torque_queues')
-      clientqueues = [] if clientqueues.nil?
+      clientqueues = (clientqueues.nil? ? [] : clientqueues.split(','))
       queueconfig = {}
       # delete queues that are not configured
       clientqueues.each do |queue|
-        Puppet.notice("delete queue #{queue}")
         queueconfig[queue] = [ "delete queue #{queue}" ] unless queues.include?(queue)
       end
       # configure queues
@@ -43,15 +42,14 @@ module Puppet::Parser::Functions
           # get values that need to be set (present in config but not on server)
           qconfig = (config - clientconfig).map { |cfg| cfg =~ /^create / ? cfg : "set queue #{queue} #{cfg}" }
           # get values that need to be unset (present on server but not in config)
-          uqconfig = (clientconfig - config).map { |cfg|
-            cfg.gsub!(/[\t =].*$/, '')
+          uqconfig = (clientconfig.map { |cfg| cfg.gsub(/[\t =].*$/, '') } - config.map { |cfg| cfg.gsub(/[\t =].*$/, '') }).map { |cfg|
+            #cfg.gsub!(/[\t =].*$/, '')
             "unset queue #{queue} #{cfg}"
           }
           # combine all commands
           queueconfig[queue] = qconfig | uqconfig
         else
-          queueconfig[queue] = config.map { |cfg| "set queue #{queue} #{cfg}" }
-          queueconfig[queue].unshift("create queue #{queue}") unless clientqueues.include?(queue)
+          queueconfig[queue] = config.map { |cfg| cfg =~ /^create / ? cfg : "set queue #{queue} #{cfg}" }
         end
       end
       queueconfig
