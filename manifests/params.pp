@@ -20,6 +20,9 @@ class torque::params {
   $mom_options            = hiera("torque::params::mom_options", {
     logevent => 255,
   })
+  $mom_prologue_file      = hiera("torque::params::mom_prologue_file", undef)
+  $mom_epilogue_file      = hiera("torque::params::mom_epilogue_file", undef)
+
 
   # server options
   $server_install_ensure  = hiera("torque::params::server_install_ensure", 'installed')
