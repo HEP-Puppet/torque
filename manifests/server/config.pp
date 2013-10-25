@@ -8,9 +8,9 @@ class torque::server::config (
     class {'torque::server::baseconfig': 
        torque_server       => $torque_server 
     }
-    class {'torque::server::qmgrconfig': 
-       qmgr_server         => $qmgr_server , 
-       qmgr_queue_defaults => $qmgr_queue_defaults,
-       qmgr_queues         => $qmgr_queues
-    }
+#    class {'torque::server::qmgrconfig': 
+#       qmgr_server         => $qmgr_server , 
+#       qmgr_queue_defaults => $qmgr_queue_defaults,
+#       qmgr_queues         => $qmgr_queues
+#    }
 }
