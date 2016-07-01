@@ -23,7 +23,10 @@ class torque::params {
   $mom_prologue_file      = hiera("torque::params::mom_prologue_file", undef)
   $mom_epilogue_file      = hiera("torque::params::mom_epilogue_file", undef)
 
-
+  $nodesfile              = hiera("torque::params::nodesfile", "/tmp/test") 
+  $memperjob              = hiera("torque::params::memperjob", 4000) 
+  $staticnodeoptions      = hiera("torque::params::staticnodeoptions", "")
+  $autonodesfile          = hiera("torque::params::autonodesfile", true)
   # server options
   $server_install_ensure  = hiera("torque::params::server_install_ensure", 'installed')
   $server_service_ensure  = hiera("torque::params::server_service_ensure", 'running')
